@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portal Maintenance</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hide Power Pages header/footer if injected */
+    header, footer,
+    #headerContainer, #footerContainer,
+    .navbar, .site-footer,
+    [id*="header"], [id*="footer"],
+    [class*="header"], [class*="footer"] {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .maintenance-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      padding: 56px 48px;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 28px;
+      background: #fff3cd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon svg {
+      width: 32px;
+      height: 32px;
+      color: #f0a500;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .contact-box {
+      background: #f0f4ff;
+      border: 1px solid #d0dbff;
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .contact-box span {
+      display: block;
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-box a {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2a4dd0;
+      text-decoration: none;
+    }
+
+    .contact-box a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-name {
+      font-size: 0.95rem;
+      color: #333;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="maintenance-wrapper">
+    <div class="card">
+
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        </svg>
+      </div>
+
+      <h1>Portal Under Maintenance</h1>
+
+      <p>
+        Our portal is currently undergoing maintenance. If you require access
+        to documents, videos or any other assets during this time, please reach
+        out to:
+      </p>
+
+      <div class="contact-box">
+        <span>Contact</span>
+        <div class="contact-name">Michael Terjung</div>
+        <a href="mailto:MTerjung@rk.com.au">MTerjung@rk.com.au</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Aggressively hide any Power Pages header/footer elements after DOM loads
+    function hideShellElements() {
+      const selectors = [
+        'header', 'footer', 'nav',
+        '#headerContainer', '#footerContainer',
+        '.navbar', '.site-footer', '.site-header',
+        '[id*="header"]', '[id*="footer"]',
+        '[class*="header"]', '[class*="footer"]'
+      ];
+
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+          el.style.setProperty('display', 'none', 'important');
+          el.style.setProperty('visibility', 'hidden', 'important');
+          el.style.setProperty('height', '0', 'important');
+          el.style.setProperty('overflow', 'hidden', 'important');
+        });
+      });
+    }
+
+    // Run on load
+    hideShellElements();
+
+    // Run again after a short delay (in case Power Pages injects elements late)
+    setTimeout(hideShellElements, 500);
+    setTimeout(hideShellElements, 1500);
+
+    // Watch for any dynamically added elements
+    const observer = new MutationObserver(hideShellElements);
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
+
+</body>
+</html>
